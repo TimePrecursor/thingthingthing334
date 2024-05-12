@@ -77,6 +77,17 @@ alphabet3 = ''.join(alphabet1)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #                        The Functions
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+def copytoclip(msg1):
+    root.clipboard_clear()
+    root.clipboard_append(msg1)
+    if newmsg == "":
+        labelez['text']=('Output:',"None")
+    else:
+        labelez['text']=('Output:',newmsg)
+
+def updatelabel():
+    labelez['text']=("please only enter english letters!")
+
 
 
 def decrypt():
