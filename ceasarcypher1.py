@@ -13,14 +13,65 @@ from tkinter import *
 from tkinter.ttk import *
 from tkinter import messagebox
 
+
+
+
 # creates a Tk() object
 root = Tk()
 
-#sets the geometry of main
-#root window
+#sets the geometry of
+#main root window
 root.title("Ceasar Cypher")
-root.geometry("400x400")
+root.geometry("500x500")
 root.resizable(False, False)
+
+
+# Create a menu with options (Version 1.2)
+
+menubar = Menu(root)
+filemenu = Menu(menubar, tearoff=0)
+
+
+# define functions for
+# the menu -
+
+# placeholder function
+def donothing():
+   filewin = Toplevel(root)
+   button = Button(filewin, text="Do nothing button")
+   button.pack()
+
+# fucntion to save the file
+def menu_save():
+    from function_file1 import filemenu_Save
+    filemenu_Save(keyholder.get(), newmsg3.get(), typeoffile.get())
+
+
+# (a later feature)
+# filemenu.add_command(label="Open", command=donothing)
+
+# lets the user save the current output
+filemenu.add_command(label="Save", command=menu_save)
+# separate
+filemenu.add_separator()
+
+# exits the program
+filemenu.add_command(label="Exit", command=root.destroy)
+
+# name the cascade as file
+menubar.add_cascade(label="File", menu=filemenu)
+
+
+# Initialise the menu
+root.config(menu=menubar)
+
+
+
+
+
+
+
+
 
 alphabet_3 = StringVar()
 alphabet2 = []
@@ -35,12 +86,14 @@ alphabet_3 = ''.join(alphabet1)
 def checkthekey(typelol):
     try:
         x = key.get()
+        
     except:
         messagebox.showerror("error", "Please enter only whole numbers (under 25 and over 25") 
     else:
-        if isinstance(x, int) == False or x < -25 or x > 26:
+        boolx = bool(isinstance(x, int) == False or x < -25 or x > 26)
+        if boolx == True:
             messagebox.showerror("error", "Please enter only whole numbers (under 25 and over 25") 
-        elif isinstance(x, int) == True and (x > -25 and x < 26):
+        elif boolx == False:
             if typelol == "de":
                 decrypt()
             elif typelol == "en":
@@ -84,7 +137,7 @@ def updatelabel():
 
 
 newmsg = []
-
+typeoffile = StringVar()
 
 
 def decrypt():
@@ -105,6 +158,7 @@ def decrypt():
     newmsg3 = StringVar()
     newmsg3.set(newmsg2)
     copytoclip(newmsg3.get())
+    typeoffile.set("decrypt")
     # print("Decrypted message: " + newmsg)
     # messagebox.showinfo("Decrypted", (newmsg2.get(),copytoclip('lol21')))copytoclip('lol21')
 
@@ -127,6 +181,7 @@ def encrypt():
     newmsg3 = StringVar()
     newmsg3.set(newmsg2)
     copytoclip(newmsg3.get())
+    typeoffile.set("encrypt")
     # messagebox.showinfo("Encrypted", newmsg)
 
 
